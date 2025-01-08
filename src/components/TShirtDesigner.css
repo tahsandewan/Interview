@@ -1,0 +1,42 @@
+.designer-container {
+    text-align: center;
+    padding: 100px 50px;
+}
+
+.upload-section {
+    margin-bottom: 20px;
+}
+
+.tshirt-container {
+    position: relative;
+    display: inline-block;
+    border: 2px dashed #ccc;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+.tshirt-image {
+    width: 300px;
+    height: auto;
+}
+
+.logo {
+    position: absolute;
+    width: 80px;
+    height: auto;
+    cursor: grab;
+}
+
+.tshirt_body {
+    display: flex;
+    justify-content: space-around;
+}
+
+.tshirt_button_part {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.submit_btn{
+    width: fit-content;
+}

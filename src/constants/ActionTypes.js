@@ -1,0 +1,7 @@
+
+
+//Data fetch
+export const LIST_FETCH_START = "LIST_FETCH_START";
+export const LIST_FETCH_SUCCESS = "LIST_FETCH_SUCCESS";
+export const LIST_FETCH_FAILURE = "LIST_FETCH_FAILURE";
+
