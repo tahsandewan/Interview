@@ -1,9 +1,9 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect, Fragment,useCallback } from 'react';
 
 import "./TableStyle.css";
 import { connect } from "react-redux";
 import { dataFetch } from "../actions/searchAction"
-
+import useDebounce from "./useDebounce";
 
 const SearchTable = (props) => {
     useEffect(() => {
@@ -12,7 +12,7 @@ const SearchTable = (props) => {
     }, []);
     const [search, setSearch] = useState("");
     const [dataPerPage, setDataPerPage] = useState(10);
-
+    const [debounceVal, setDebounceVal] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = Math.ceil(props.data?.total / dataPerPage);
     const startIndex = (currentPage - 1) * dataPerPage;
@@ -25,7 +25,8 @@ const SearchTable = (props) => {
     }
     const setSearchUser = (text) => {
         setSearch(text.toLowerCase())
-        props.dataFetch(dataPerPage, text.toLowerCase())
+        debouncedSearch(text);
+        // props.dataFetch(dataPerPage, text.toLowerCase())
 
     }
     const handleClear = () => {
@@ -41,8 +42,11 @@ const SearchTable = (props) => {
     const totalData = props?.data?.total;
     const startData = (currentPage - 1) * dataPerPage + 1;
     const endData = Math.min(currentPage * dataPerPage, totalData);
-
-    console.log("data",props.data)
+    const debouncedSearch = useDebounce((value) => {
+        props.dataFetch(dataPerPage, value.toLowerCase())
+        console.log("Searching for:", value);
+      }, 500);
+    
     return (
         <div className="table-container">
             <div className='inpur_search'>
@@ -51,7 +55,7 @@ const SearchTable = (props) => {
                     placeholder="Search area"
                     className="search-input"
                     value={search}
-                    onChange={(e) => setSearchUser(e.target.value)}
+                    onChange={(e) => {setSearchUser(e.target.value)}}
                 />
                 {search && (
                     <button onClick={handleClear} style={{ marginLeft: '10px' }}>
